@@ -25,7 +25,7 @@ int angle = 0;
 float stepPerAngle = 1.8; // full step = 1.8
 
 int   numstep;
-
+boolean dirStatus=HIGH;
 
 
 void setup() {
@@ -44,7 +44,7 @@ void setup() {
 
   digitalWrite(enPin,LOW);
 
-  digitalWrite(dirPin,HIGH);
+  digitalWrite(dirPin,dirStatus);
 
 
 
@@ -67,71 +67,37 @@ void loop() {
     int n;
 
     if( digitalRead(b1) == HIGH){
-
         angle = 0;
-
-     
-
     }
 
     else if( digitalRead(b2) == HIGH){
-
         angle = 45;
-
-     
-
     }
 
     else if( digitalRead(b3) == HIGH){
-
         angle = 225;
-
-     
-
     }
 
     else if( digitalRead(b4) == HIGH){
-
         angle = 270;
-
-     
-
     }
 
 
 
     if( currentAngle != angle ){
-
-
-
         if( currentAngle < angle){
-
-            digitalWrite(dirPin,HIGH);
-
+           // digitalWrite(dirPin,HIGH);
              n = angle - currentAngle;
-
             numstep = n / stepPerAngle;
-
         }
-
         else if( currentAngle > angle){
-
-            digitalWrite(dirPin,LOW);
-
-            n = currentAngle - angle;
-
+            //digitalWrite(dirPin,LOW);
+            n = 360-(currentAngle - angle);
             if( angle == 0){
-
                n =currentAngle;
-
             }
-
             numstep = n / stepPerAngle;
-
         }
-
-
-
         for(int x = 0; x < numstep; x++) {
 
            digitalWrite(stepPin,HIGH);
@@ -143,11 +109,7 @@ void loop() {
            delayMicroseconds(1000);
 
         }
-
-
-
         currentAngle = angle;
-
     }
 
 
